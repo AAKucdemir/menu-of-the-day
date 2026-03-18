@@ -1,0 +1,1 @@
+ https://aakucdemir.github.io/menu-of-the-day/
