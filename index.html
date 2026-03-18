@@ -1,0 +1,1234 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Günün Menüsü | Premium Lifestyle Curator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0f0f1a;
+            --primary-light: #1a1a2e;
+            --accent-rose: #ff6b9d;
+            --accent-gold: #ffd700;
+            --accent-cyan: #00d9ff;
+            --accent-purple: #b829dd;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--primary-dark);
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Aurora Background Effect */
+        .aurora-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(255, 107, 157, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(0, 217, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(184, 41, 221, 0.1) 0%, transparent 70%),
+                var(--primary-dark);
+            animation: auroraMove 20s ease-in-out infinite;
+        }
+
+        @keyframes auroraMove {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Section */
+        header {
+            text-align: center;
+            padding: 60px 0 80px;
+            position: relative;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-rose), var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .divider {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            margin: 30px auto;
+        }
+
+        /* Mood Selector - Glass Cards */
+        .mood-section {
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            text-align: center;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .mood-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .mood-card {
+            position: relative;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 35px 25px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .mood-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .mood-card:hover::before {
+            left: 100%;
+        }
+
+        .mood-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .mood-card.active {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .mood-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .mood-card:hover .mood-icon {
+            transform: scale(1.2);
+        }
+
+        .mood-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .mood-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Experience Cards - Premium Layout */
+        .experience-container {
+            perspective: 2000px;
+        }
+
+        .experience-card {
+            display: none;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+            transform-style: preserve-3d;
+            animation: cardEnter 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .experience-card.active {
+            display: block;
+        }
+
+        @keyframes cardEnter {
+            from {
+                opacity: 0;
+                transform: translateY(60px) rotateX(10deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
+        }
+
+        /* Card Header */
+        .card-hero {
+            position: relative;
+            padding: 60px;
+            background: linear-gradient(135deg, rgba(255,107,157,0.1), rgba(0,217,255,0.1));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .card-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: floatIcon 3s ease-in-out infinite;
+        }
+
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff, var(--accent-gold));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }   
+        .hero-tagline {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            font-weight: 300;
+        }
+
+        /* Content Grid - 3D Cards */
+        .content-trio {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            min-height: 600px;
+        }
+
+        .trio-section {
+            position: relative;
+            padding: 50px;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .trio-section:last-child {
+            border-right: none;
+        }
+
+        .trio-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, rgba(255,255,255,0.02));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .trio-section:hover::before {
+            opacity: 1;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        .badge-food { color: #ffb347; border-color: rgba(255, 179, 71, 0.3); }
+        .badge-activity { color: #74b9ff; border-color: rgba(116, 185, 255, 0.3); }
+        .badge-movie { color: #fd79a8; border-color: rgba(253, 121, 168, 0.3); }
+
+        .section-header {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Recipe Box - Glass Effect */
+        .recipe-container {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .recipe-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent-gold), transparent);
+        }
+
+        .recipe-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+
+        .recipe-list {
+            list-style: none;
+            margin-bottom: 8px;
+        }
+
+        .recipe-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: start;
+            gap: 10px;
+        }
+
+        .recipe-list li:last-child {
+            border-bottom: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-top: 10px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .recipe-list li::before {
+            content: '›';
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
+
+        /* Movie Section Special */
+        .movie-meta {
+            display: flex;
+            gap: 12px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .meta-tag {
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .trailer-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 25px;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--accent-rose), var(--accent-purple));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trailer-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .trailer-btn:hover::before {
+            left: 100%;
+        }
+
+        .trailer-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+        }
+
+        /* Connection Flow */
+        .connection-section {
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+            padding: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .connection-title {
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            color: var(--text-secondary);
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .flow-node {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px 35px;
+            text-align: center;
+            min-width: 180px;
+            transition: all 0.3s ease;
+        }
+
+        .flow-node:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .flow-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .flow-label {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .flow-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .flow-arrow {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            opacity: 0.6;
+            animation: pulseArrow 2s infinite;
+        }
+
+        @keyframes pulseArrow {
+            0%, 100% { opacity: 0.6; transform: translateX(0); }
+            50% { opacity: 1; transform: translateX(5px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .content-trio {
+                grid-template-columns: 1fr;
+            }
+            .trio-section {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo { font-size: 2.5rem; }
+            .hero-title { font-size: 2rem; }
+            .mood-grid { grid-template-columns: repeat(2, 1fr); }
+            .flow-diagram { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+        }
+
+        /* Cursor Glow Effect */
+        .cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,107,157,0.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            transition: all 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="aurora-bg"></div>
+    <div class="particles" id="particles"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <div class="container">
+        <header>
+            <h1 class="logo">Günün Menüsü</h1>
+            <div class="divider"></div>
+            <p class="subtitle">Bugün nasıl hissediyorsun? Sana özel hazırlanmış, üç boyutlu bir yaşam deneyimi seni bekliyor.</p>
+        </header>
+
+        <section class="mood-section">
+            <p class="section-label">Deneyim Seç</p>
+            <div class="mood-grid">
+                <div class="mood-card" onclick="showExperience('romantic')">
+                    <span class="mood-icon">💕</span>
+                    <div class="mood-title">Romantik</div>
+                    <div class="mood-desc">Aşk dolu bir akşam için</div>
+                </div>
+                <div class="mood-card" onclick="showExperience('adventure')">
+                    <span class="mood-icon">🏔️</span>
+                    <div class="mood-title">Macera</div>
+                    <div class="mood-desc">Adrenalin ve keşif</div>
+                </div>
+                <div class="mood-card" onclick="showExperience('cozy')">
+                    <span class="mood-icon">☕</span>
+                    <div class="mood-title">Rahat</div>
+                    <div class="mood-desc">Huzur ve dinginlik</div>
+                </div>
+                <div class="mood-card" onclick="showExperience('energetic')">
+                    <span class="mood-icon">⚡</span>
+                    <div class="mood-title">Enerjik</div>
+                    <div class="mood-desc">Hareket ve müzik</div>
+                </div>
+                <div class="mood-card" onclick="showExperience('mysterious')">
+                    <span class="mood-icon">🌙</span>
+                    <div class="mood-title">Gizemli</div>
+                    <div class="mood-desc">Derin ve düşündürücü</div>
+                </div>
+                <div class="mood-card" onclick="showExperience('nostalgic')">
+                    <span class="mood-icon">📻</span>
+                    <div class="mood-title">Nostaljik</div>
+                    <div class="mood-desc">Geçmişe yolculuk</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="experience-container">
+            <!-- Romantik Deneyim -->
+            <div id="romantic" class="experience-card">
+                <div class="card-hero">
+                    <div class="hero-content">
+                        <span class="hero-icon">💕</span>
+                        <h2 class="hero-title">Romantik Bir Akşam</h2>
+                        <p class="hero-tagline">"Aşk dolu bir gece için mükemmel kombinasyon"</p>
+                    </div>
+                </div>
+                <div class="content-trio">
+                    <div class="trio-section">
+                        <span class="section-badge badge-food">🍝 Yemek</span>
+                        <div class="section-header">
+                            <h3 class="section-title">Fettuccine Alfredo & Karides</h3>
+                            <p class="section-subtitle">Kremalı, zengin ve sofistike bir İtalyan klasiği. Taze karidesle birleşince romantizmin tadı damağınızda kalıyor.</p>
+                        </div>
+                        <div class="recipe-container">
+                            <div class="recipe-header">
+                                <span>🥘</span> Tarif (2 Kişilik)
+                            </div>
+                            <ul class="recipe-list">
+                                <li>300g fettuccine makarna</li>
+                                <li>200g taze karides (temizlenmiş)</li>
+                                <li>200ml ağır krema (heavy cream)</li>
+                                <li>100g taze rendelenmiş parmesan</li>
+                                <li>3 diş sarımsak (ezilmiş)</li>
+                                <li>2 yemek kaşığı tereyağı</li>
+                                <li>Taze fesleğen & karabiber</li>
+                                <li>Tereyağında sarımsakları kavur, karidesleri 2 dk sotele. Kremayı ekle, kaynat. Parmesanı erit, makarnayı karıştır. Fesleğenle süsle.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="trio-section">
+                        <span class="section-badge badge-activity">🌅 Aktivite</span>
+                        <div class="section-header">
+                            <h3 class="section-title">Gün Batımı Pikniği</h3>
+                            <p class="section-subtitle">Yemeğinizi önceden hazırlayıp, şehir dışında bir tepede veya sahil kenarında battaniye serin. Bir şişe şarap, bluetooth hoparlörde caz müzik.</p>
+                        </div>
+                        <div class="recipe-container">
+                            <div class="recipe-header">
+                                <span>🎯</span> Neden Bu Etkinlik?
+                            </div>
+                            <ul class="recipe-list">
+                                <li>Doğa, yemek ve müzik üçlüsü romantik bağları güçlendirir</li>
+                                <li>Gün batımı melatonin salgılatır</li>
+                                <li>Samimi sohbetleri teşvik eder</li>
+                                <li>Önerilen şarap: Pinot Noir veya Chardonnay</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="trio-section">
+                        <span class="section-badge badge-movie">🎬 Film</span>
+                        <div class="section-header">
+                            <h3 class="section-title">Before Sunrise</h3>
+                            <p class="section-subtitle">Richard Linklater'ın başyapıtı. Trende tanışan iki genç, Viyana'da bir gece geçirir. Diyalog ağırlıklı, samimi ve derin bir aşk hikayesi.</p>
+                        </div>
+                        <div class="movie-meta">
+                            <span class="meta-tag">IMDb: 8.1</span>
+                            <span class="meta-tag">Romantik/Drama</span>
+                            <span class="meta-tag">101 dk</span>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=9v6X-Dal_lg" target="_blank" class="trailer-btn">
+                            <span>▶</span> Fragmanı İzle
+                        </a>
+                    </div>
+                </div>
+                <div class="connection-section">
+                    <h4 class="connection-title">🎨 Neden Bu Kombinasyon?</h4>
+                    <div class="flow-diagram">
+                        <div class="flow-node">
+                            <div class="flow-icon">🍝</div>
+                            <div class="flow-label">Kremalı Makarna</div>
+                            <div class="flow-desc">Sıcak & Samimi</div>
+                        </div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-node">
+                            <div class="flow-icon">🌅</div>
+                            <div class="flow-label">Gün Batımı</div>
+                            <div class="flow-desc">Romantik Atmosfer</div>
+                        </div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-node">
+                            <div class="flow-icon">🎬</div>
+                            <div class="flow-label">Before Sunrise</div>
+                            <div class="flow-desc">Derin Bağlar</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Macera Deneyim -->
+            <div id="adventure" class="experience-card">
+                <div class="card-hero">
+                    <div class="hero-content">
+                        <span class="hero-icon">🏔️</span>
+                        <h2 class="hero-title">Macera Dolu Bir Gün</h2>
+                        <p class="hero-tagline">"Adrenalin ve keşif tutkunları için"</p>
+                    </div>
+                </div>
+                <div class="content-trio">
+                    <div class="trio-section">
+                        <span class="section-badge badge-food">🥾 Yemek</span>
+                        <div class="section-header">
+                            <h3 class="section-title">Dağcı Usulü Güveç</h3>
+                            <p class="section-subtitle">Doğada kolayca yapılabilen, protein ve karbonhidrat dolu bir güç yemeği. Tek tencerede her şey!</p>
+                        </div>
+                        <div class="recipe-container">
+                            <div class="recipe-header">
+                                <span>🥘</span> Kamp Tarifi
+                            </div>
+                            <ul class="recipe-list">
+                                <li>300g dana kuşbaşı</li>
+                                <li>2 patates (dilimlenmiş)</li>
+                                <li>1 soğan, 2 havuç</li>
+                                <li>200g mantar</li>
+                                <li>1 konserve bezelye</li>
+                                <li>Et suyu tablet, tuz, karabiber</li>
+                                <li>Döküm tencerede eti mühürle. Sebzeleri ekle, suyu ekle. 45 dk kısık ateşte pişir. Kamp ateşinde daha lezzetli!</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="trio-section">
+                        <span class="section-badge badge-activity">🧗 Aktivite</span>
+                        <div class="section-header">
+                            <h3 class="section-title">Günübirlik Trekking</h3>
+                            <p class="section-subtitle">Sabah erken kalk, en yakın milli parka git. 4-5 saatlik yürüyüş rotası, öğle yemeği zirvede, akşam kamp ateşi.</p>
+                        </div>
+                        <div class="recipe-container">
+                            <div class="recipe-header">
+                                <span>🎯</span> Ekipman Listesi
+                            </div>
+                            <ul class="recipe-list">
+                                <li>Su (3L) ve filtre</li>
+                                <li>Navigasyon uygulaması (Maps.me)</li>
+                                <li>İlk yardım çantası</li>
+                                <li>Powerbank ve kafa feneri</li>
+                                <li>Katlanır sandalye ve termos</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="trio-section">
+                        <span class="section-badge badge-movie">🎬 Film</span>
+                        <div class="section-header">
+                            <h3 class="section-title">Into the Wild</h3>
+                            <p class="section-subtitle">Christopher McCandless'in gerçek hikayesi. Toplumdan kaçıp Alaska vahşi doğasında hayatta kalma mücadelesi.</p>
+                        </div>
+                        <div class="movie-meta">
+                            <span class="meta-tag">IMDb: 8.1</span>
+                            <span class="meta-tag">Biyografi/Macera</span>
+                            <span class="meta-tag">148 dk</span>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=2LAwgz5c0m0" target="_blank" class="trailer-btn">
+                            <span>▶</span> Fragmanı İzle
+                        </a>
+                    </div>
+                </div>
+                <div class="connection-section">
+                    <h4 class="connection-title">🎨 Neden Bu Kombinasyon?</h4>
+                    <div class="flow-diagram">
+                        <div class="flow-node">
+                            <div class="flow-icon">🥾</div>
+                            <div class="flow-label">Dağcı Güveci</div>
+                            <div class="flow-desc">Enerji & Dayanıklılık</div>
+                        </div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-node">
+                            <div class="flow-icon">🏔️</div>
+                            <div class="flow-label">Trekking</div>
+                            <div class="flow-desc">Fiziksel Zorluk</div>
+                        </div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-node">
+                            <div class="flow-icon">🎬</div>
+                            <div class="flow-label">Into the Wild</div>
+                            <div class="flow-desc">Ruhun Özgürlüğü</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rahat Deneyim -->
+            <div id="cozy" class="experience-card">
+                <div class="card-hero">
+                    <div class="hero-content">
+                        <span class="hero-icon">☕</span>
+                        <h2 class="hero-title">Rahat ve Huzurlu</h2>
+                        <p class="hero-tagline">"Kendine zaman ayır, yavaşla"</p>
+                    </div>
+                </div>
+                <div class="content-trio">
+                    <div class="trio-section">
+                        <span class="section-badge badge-food">🍲 Yemek</span>
+                        <div class="section-header">
+                            <h3 class="section-title">Mercimek Çorbası & Bazlama</h3>
+                            <p class="section-subtitle">Anne eli değmiş gibi, içini ısıtan klasik bir Türk menüsü. Yapımı kolay, sindirimi rahat, ruhu dinlendiren.</p>
+                        </div>
+                        <div class="recipe-container">
+                            <div class="recipe-header">
+                                <span>🥘</span> Anne Usulü
+                            </div>
+                            <ul class="recipe-list">
+                                <li>1 su bardağı kırmızı mercimek</li>
+                                <li>1 soğan, 1 havuç, 1 patates</li>
+                                <li>1 yemek kaşığı un & tereyağı</li>
+                                <li>Kimyon, pul biber, nane</li>
+                                <li>Bazlama için: 2 su bardağı un, su, tuz, maya</li>
+                                <li>Sebzeleri doğra, mercimekle haşla. Blender'dan geçir. Tereyağlı salçalı sos dök.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="trio-section">
+                        <span class="section-badge badge-activity">📚 Aktivite</span>
+                        <div class="section-header">
+                            <h3 class="section-title">Kitaplık Günü & Sıcak Banyo</h3>
+                            <p class="section-subtitle">Evde pijamalarla kal. Tuzlu/köpüklü banyo, mumlar, kitap. Akşam yemeği sonrası bol uyku.</p>
+                        </div>
+                        <div class="recipe-container">
+                            <div class="recipe-header">
+                                <span>🎯</span> Hygge Rehberi
+                            </div>
+                            <ul class="recipe-list">
+                                <li>Yumuşak battaniye ve yastıklar</li>
+                                <li>Kokulu mum (vanilya/okaliptus)</li>
+                                <li>Sıcak bitki çayı (papatya/lavanta)</li>
+                                <li>En sevdiğin çoraplar</li>
+                                <li>Telefonu uçak moduna al!</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="trio-section">
+                        <span class="section-badge badge-movie">🎬 Film</span>
+                        <div class="section-header">
+                            <h3 class="section-title">The Grand Budapest Hotel</h3>
+                            <p class="section-subtitle">Wes Anderson'ın görsel şöleni. Renkler, simetri, mizah ve nostalji. Pastel bir masalda hisset.</p>
+                        </div>
+                        <div class="movie-meta">
+                            <span class="meta-tag">IMDb: 8.1</span>
+                            <span class="meta-tag">Komedi/Drama</span>
+                            <span class="meta-tag">99 dk</span>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=1Fg5iWmQjwk" target="_blank" class="trailer-btn">
+                            <span>▶</span> Fragmanı İzle
+                        </a>
+                    </div>
+                </div>
+                <div class="connection-section">
+                    <h4 class="connection-title">🎨 Neden Bu Kombinasyon?</h4>
+                    <div class="flow-diagram">
+                        <div class="flow-node">
+                            <div class="flow-icon">🍲</div>
+                            <div class="flow-label">Mercimek Çorbası</div>
+                            <div class="flow-desc">Anne Şefkati</div>
+                        </div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-node">
+                            <div class="flow-icon">📚</div>
+                            <div class="flow-label">Kitap & Banyo</div>
+                            <div class="flow-desc">Kendine Bakım</div>
+                        </div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-node">
+                            <div class="flow-icon">🎬</div>
+                            <div class="flow-label">Grand Budapest</div>
+                            <div class="flow-desc">Görsel Terapi</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enerjik Deneyim -->
+            <div id="energetic" class="experience-card">
+                <div class="card-hero">
+                    <div class="hero-content">
+                        <span class="hero-icon">⚡</span>
+                        <h2 class="hero-title">Enerji Dolu</h2>
+                        <p class="hero-tagline">"Hareket, müzik ve gece hayatı"</p>
+                    </div>
+                </div>
+                <div class="content-trio">
+                    <div class="trio-section">
+                        <span class="section-badge badge-food">🌮 Yemek</span>
+                        <div class="section-header">
+                            <h3 class="section-title">Ev Yapımı Taco & Guacamole</h3>
+                            <p class="section-subtitle">Meksika'nın enerjisi dolu lezzetleri. Elle yenebilir, soslu, baharatlı. Grup yemeği için ideal!</p>
+                        </div>
+                        <div class="recipe-container">
+                            <div class="recipe-header">
+                                <span>🥘</span> Parti Tarifi (4 Kişi)
+                            </div>
+                            <ul class="recipe-list">
+                                <li>500g kıyma (dana veya tavuk)</li>
+                                <li>Taco kit veya lavaş</li>
+                                <li>Guacamole: 2 avokado, lime, kırmızı soğan</li>
+                                <li>Sour cream, salsa sos, cheddar</li>
+                                <li>Marul, domates, mısır</li>
+                                <li>Herkes kendi tacosunu doldursun - interaktif yemek!</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="trio-section">
+                        <span class="section-badge badge-activity">🎤 Aktivite</span>
+                        <div class="section-header">
+                            <h3 class="section-title">Karaoke Gecesi & Dans</h3>
+                            <p class="section-subtitle">Evde arkadaşlarla karaoke seti kur, veya yerel bir karaoke bara git. Yemek sonrası dans!</p>
+                        </div>
+                        <div class="recipe-container">
+                            <div class="recipe-header">
+                                <span>🎵</span> Playlist Önerisi
+                            </div>
+                            <ul class="recipe-list">
+                                <li>Queen - Don't Stop Me Now</li>
+                                <li>Beyoncé - Crazy in Love</li>
+                                <li>Daft Punk - Get Lucky</li>
+                                <li>Türkçe pop hits (90'lar-2000'ler)</li>
+                                <li>Neşet Ertaş - Gönül Dağı (surprise!)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="trio-section">
+                        <span class="section-badge badge-movie">🎬 Film</span>
+                        <div class="section-header">
+                            <h3 class="section-title">Baby Driver</h3>
+                            <p class="section-subtitle">Edgar Wright'ın müzik ve aksiyonu harmanlayan şaheseri. Her sahne ritme göre kurgulanmış.</p>
+                        </div>
+                        <div class="movie-meta">
+                            <span class="meta-tag">IMDb: 7.6</span>
+                            <span class="meta-tag">Aksiyon/Müzik</span>
+                            <span class="meta-tag">113 dk</span>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=D9YZz8D1D9U" target="_blank" class="trailer-btn">
+                            <span>▶</span> Fragmanı İzle
+                        </a>
+                    </div>
+                </div>
+                <div class="connection-section">
+                    <h4 class="connection-title">🎨 Neden Bu Kombinasyon?</h4>
+                    <div class="flow-diagram">
+                        <div class="flow-node">
+                            <div class="flow-icon">🌮</div>
+                            <div class="flow-label">Taco Gecesi</div>
+                            <div class="flow-desc">Sosyal & Canlı</div>
+                        </div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-node">
+                            <div class="flow-icon">🎤</div>
+                            <div class="flow-label">Karaoke</div>
+                            <div class="flow-desc">Enerji Patlaması</div>
+                        </div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-node">
+                            <div class="flow-icon">🎬</div>
+                            <div class="flow-label">Baby Driver</div>
+                            <div class="flow-desc">Ritim & Hız</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gizemli Deneyim -->
+            <div id="mysterious" class="experience-card">
+                <div class="card-hero">
+                    <div class="hero-content">
+                        <span class="hero-icon">🌙</span>
+                        <h2 class="hero-title">Gizemli ve Derin</h2>
+                        <p class="hero-tagline">"Bilinmeyeni keşfet, zihni meşgul et"</p>
+                    </div>
+                </div>
+                <div class="content-trio">
+                    <div class="trio-section">
+                        <span class="section-badge badge-food">🍛 Yemek</span>
+                        <div class="section-header">
+                            <h3 class="section-title">Butter Chicken</h3>
+                            <p class="section-subtitle">Hint baharatlarının gizemli dansı. Yoğurt, tereyağı ve masala karışımı. Her ısırıkta yeni bir katman.</p>
+                        </div>
+                        <div class="recipe-container">
+                            <div class="recipe-header">
+                                <span>🥘</span> Hint Mutfağı
+                            </div>
+                            <ul class="recipe-list">
+                                <li>500g tavuk but (kemiksiz)</li>
+                                <li>Marinasyon: Yoğurt, zerdeçal, garam masala</li>
+                                <li>Sos: Domates püresi, krema, tereyağı, bal</li>
+                                <li>Baharatlar: Kimyon, kişniş, kakule, tarçın</li>
+                                <li>Tavukları marine et (2 saat). Fırında pişir. Sosunu ayrı hazırla, basmati pilavıyla servis et.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="trio-section">
+                        <span class="section-badge badge-activity">🔮 Aktivite</span>
+                        <div class="section-header">
+                            <h3 class="section-title">Escape Room & Tarot</h3>
+                            <p class="section-subtitle">Arkadaşlarla evde escape room oyunu. Sonrasında tarot kartlarına bak veya gece yürüyüşüne çık.</p>
+                        </div>
+                        <div class="recipe-container">
+                            <div class="recipe-header">
+                                <span>🌙</span> Gizemli Atmosfer
+                            </div>
+                            <ul class="recipe-list">
+                                <li>Loş mor/led ışıklandırma</li>
+                                <li>Tütsü (sandalwood/white sage)</li>
+                                <li>Siyah mumlar ve gümüş aksesuarlar</li>
+                                <li>Gizemli playlist (Ludovico Einaudi)</li>
+                                <li>Defter ve kalem - rüya günlüğü tut</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="trio-section">
+                        <span class="section-badge badge-movie">🎬 Film</span>
+                        <div class="section-header">
+                            <h3 class="section-title">Shutter Island</h3>
+                            <p class="section-subtitle">Scorsese ve DiCaprio. Zihinsel hastanede geçen, gerçeklik algısını sorgulatan, sonu şok edici bir gerilim.</p>
+                        </div>
+                        <div class="movie-meta">
+                            <span class="meta-tag">IMDb: 8.2</span>
+                            <span class="meta-tag">Gerilim/Gizem</span>
+                            <span class="meta-tag">138 dk</span>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=5iaYLCiq5RM" target="_blank" class="trailer-btn">
+                            <span>▶</span> Fragmanı İzle
+                        </a>
+                    </div>
+                </div>
+                <div class="connection-section">
+                    <h4 class="connection-title">🎨 Neden Bu Kombinasyon?</h4>
+                    <div class="flow-diagram">
+                        <div class="flow-node">
+                            <div class="flow-icon">🍛</div>
+                            <div class="flow-label">Butter Chicken</div>
+                            <div class="flow-desc">Katmanlı & Karmaşık</div>
+                        </div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-node">
+                            <div class="flow-icon">🔮</div>
+                            <div class="flow-label">Escape Room</div>
+                            <div class="flow-desc">Zeka & Gizem</div>
+                        </div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-node">
+                            <div class="flow-icon">🎬</div>
+                            <div class="flow-label">Shutter Island</div>
+                            <div class="flow-desc">Psikolojik Derinlik</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nostaljik Deneyim -->
+            <div id="nostalgic" class="experience-card">
+                <div class="card-hero">
+                    <div class="hero-content">
+                        <span class="hero-icon">📻</span>
+                        <h2 class="hero-title">Nostaljik ve Retro</h2>
+                        <p class="hero-tagline">"Geçmişe yolculuk, eski güzel zamanlar"</p>
+                    </div>
+                </div>
+                <div class="content-trio">
+                    <div class="trio-section">
+                        <span class="section-badge badge-food">🥞 Yemek</span>
+                        <div class="section-header">
+                            <h3 class="section-title">Klasik Köfte & Patates</h3>
+                            <p class="section-subtitle">80'ler-90'lar Türkiye'sinden bir lezzet. Ev yapımı köfte, ince patates kızartması, domates soslu makarna.</p>
+                        </div>
+                        <div class="recipe-container">
+                            <div class="recipe-header">
+                                <span>🥘</span> Anneanne Tarifi
+                            </div>
+                            <ul class="recipe-list">
+                                <li>500g orta yağlı kıyma</li>
+                                <li>1 rendelenmiş soğan (suyu sıkılmış)</li>
+                                <li>Galeta unu, 1 yumurta</li>
+                                <li>Karabiber, kimyon, tuz</li>
+                                <li>Patatesleri ince dilimle, kızart</li>
+                                <li>Kıymaya soğan, yumurta, baharatı karıştır. 30 dk dinlendir. Yuvarlak köfteler yap, tavada pişir.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="trio-section">
+                        <span class="section-badge badge-activity">🎮 Aktivite</span>
+                        <div class="section-header">
+                            <h3 class="section-title">Retro Oyun Gecesi</h3>
+                            <p class="section-subtitle">Atari, NES emülatöründe eski oyunlar. Kasetçalar veya pikap aç, 90'lar Türkçe pop çal. Fotoğraf albümlerine bak.</p>
+                        </div>
+                        <div class="recipe-container">
+                            <div class="recipe-header">
+                                <span>👾</span> Retro Checklist
+                            </div>
+                            <ul class="recipe-list">
+                                <li>Tamagotchi (varsa!) veya emülatör</li>
+                                <li>Bandana veya eski tarz kıyafetler</li>
+                                <li>VHS kasetleri veya DVD'ler</li>
+                                <li>Eski dergiler (Hey, Bravo, Yeni Aktüel)</li>
+                                <li>Commodore 64 veya Atari oyunları</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="trio-section">
+                        <span class="section-badge badge-movie">🎬 Film</span>
+                        <div class="section-header">
+                            <h3 class="section-title">Back to the Future</h3>
+                            <p class="section-subtitle">Zaman yolculuğu klasikleri arasında tartışmasız zirve. 80'ler estetiği, DeLorean, ve unutulmaz müzik.</p>
+                        </div>
+                        <div class="movie-meta">
+                            <span class="meta-tag">IMDb: 8.5</span>
+                            <span class="meta-tag">Bilim Kurgu</span>
+                            <span class="meta-tag">116 dk</span>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=qvsgGtivCgs" target="_blank" class="trailer-btn">
+                            <span>▶</span> Fragmanı İzle
+                        </a>
+                    </div>
+                </div>
+                <div class="connection-section">
+                    <h4 class="connection-title">🎨 Neden Bu Kombinasyon?</h4>
+                    <div class="flow-diagram">
+                        <div class="flow-node">
+                            <div class="flow-icon">🥞</div>
+                            <div class="flow-label">Köfte & Patates</div>
+                            <div class="flow-desc">Çocukluk Kokusu</div>
+                        </div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-node">
+                            <div class="flow-icon">🎮</div>
+                            <div class="flow-label">Retro Oyunlar</div>
+                            <div class="flow-desc">90'lar Ruhu</div>
+                        </div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-node">
+                            <div class="flow-icon">🎬</div>
+                            <div class="flow-label">Back to Future</div>
+                            <div class="flow-desc">Zaman Yolculuğu</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Cursor glow effect
+        document.addEventListener('mousemove', (e) => {
+            const glow = document.getElementById('cursorGlow');
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
+
+        // Show experience function
+        function showExperience(mood) {
+            // Hide all cards
+            document.querySelectorAll('.experience-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Remove active from all mood cards        
+            document.querySelectorAll('.mood-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Show selected card
+            document.getElementById(mood).classList.add('active');
+            
+            // Add active to clicked mood card
+            event.currentTarget.classList.add('active');
+            
+            // Smooth scroll
+            setTimeout(() => {
+                document.getElementById(mood).scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }, 100);
+        }
+
+        // Initialize
+        createParticles();
+    </script>
+</body>
+</html>
+
